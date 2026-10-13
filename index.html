@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для тебя ❤️</title>
+<meta name="theme-color" content="#100713">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loader">
+    <h1>❤️</h1>
+    <p>Загрузка...</p>
+</div>
+
+<main>
+
+    <section class="hero">
+        <h1>С днём рождения, Настя ❤️</h1>
+        <p>Маленький подарок от Миши</p>
+        <button id="open">Открыть сайт 💌</button>
+        <button id="letterButton">🔒 Секретное письмо</button>
+    </section>
+
+    <section class="glass reveal timer">
+        <h2>❤️ Мы вместе уже</h2>
+        <div class="time">
+            <div><span id="days">0</span><small>дней</small></div>
+            <div><span id="hours">0</span><small>часов</small></div>
+            <div><span id="minutes">0</span><small>минут</small></div>
+        </div>
+    </section>
+
+    <section class="glass reveal">
+        <h2>📸 Наши моменты</h2>
+        <div class="gallery">
+            <div class="photo"><img src="images/photo1.jpg" alt=""></div>
+            <div class="photo"><img src="images/photo2.jpg" alt=""></div>
+            <div class="photo"><img src="images/photo3.jpg" alt=""></div>
+            <div class="photo"><img src="images/photo4.jpg" alt=""></div>
+            <div class="photo"><img src="images/photo5.jpg" alt=""></div>
+        </div>
+    </section>
+
+    <section class="glass reveal">
+        <h2>🏆 Достижения</h2>
+
+        <div class="achievement">
+            <span>🌹</span>
+            <div>
+                <h3>Первый месяц</h3>
+                <p>Получено ❤️</p>
+            </div>
+        </div>
+
+        <div class="achievement">
+            <span>🗼</span>
+            <div>
+                <h3>Прогулка по Парижу</h3>
+                <p>Получено ❤️</p>
+            </div>
+        </div>
+
+        <div class="achievement">
+            <span>💯</span>
+            <div>
+                <h3>100 дней вместе</h3>
+                <p>Получено ❤️</p>
+            </div>
+        </div>
+
+        <div class="achievement">
+            <span>🌙</span>
+            <div>
+                <h3>Полгода вместе</h3>
+                <p>Получено ❤️</p>
+            </div>
+        </div>
+
+        <div class="achievement locked">
+            <span>🔒</span>
+            <div>
+                <h3>Год вместе</h3>
+                <p>Скоро...</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- затемнение -->
+<div id="overlay"></div>
+
+<!-- КВЕСТ -->
+<div id="game">
+
+    <div id="progress">Этап 1/5</div>
+
+    <div class="question active" id="q1">
+        <h2>🗼 Какое место стало для нас особенным?</h2>
+        <div class="answers">
+            <button onclick="answer(event, true)">Париж</button>
+            <button onclick="answer(event, false)">Каланки</button>
+            <button onclick="answer(event, false)">Ницца</button>
+            <button onclick="answer(event, false)">Лион</button>
+        </div>
+    </div>
+
+    <div class="question" id="q2">
+        <h2>❤️ Что я люблю больше всего?</h2>
+        <div class="answers">
+            <button onclick="answer(event, false)">Играть в игры</button>
+            <button onclick="answer(event, true)">Гулять</button>
+            <button onclick="answer(event, false)">Спать</button>
+            <button onclick="answer(event, false)">Смотреть сериалы</button>
+        </div>
+    </div>
+
+    <div class="question" id="q3">
+        <h2>💬 Какие слова я пишу тебе чаще всего?</h2>
+        <div class="answers">
+            <button onclick="answer(event, false)">Привет</button>
+            <button onclick="answer(event, false)">Пока</button>
+            <button onclick="answer(event, true)">Люблю тебя</button>
+            <button onclick="answer(event, false)">Спокойной ночи</button>
+        </div>
+    </div>
+
+    <div class="question" id="heartGame">
+        <h2>❤️ Собери сердечки</h2>
+        <p id="heartCounter">0 / 10</p>
+        <div id="heartArea"></div>
+    </div>
+
+    <div class="question" id="dateGame">
+        <h2>📅 Когда мы начали встречаться?</h2>
+        <p>Формат:<br><b>XX/XX/XXXX</b></p>
+        <input id="dateInput" placeholder="XX/XX/XXXX" inputmode="numeric" maxlength="10">
+        <button onclick="checkDate()">Проверить</button>
+    </div>
+
+</div>
+
+<!-- письмо -->
+<div id="letter">
+    <div class="envelope">💌</div>
+    <h2>Моё письмо тебе ❤️</h2>
+
+    <div class="letter-text">
+        <p>Настя, любимая моя, с днём рождения ❤️</p>
+
+        <p>Я очень рад, что мы с тобой познакомились. Вроде прошло всего 8 месяцев, а ты уже стала для меня настолько родным человеком. Я очень сильно тебя люблю и хочу, чтобы ты всегда была счастлива, чтобы у тебя всё получалось и чтобы ты никогда не сомневалась в том, как сильно ты мне дорога.</p>
+
+        <p>Я очень ценю всё, что у нас есть, и нашу прогулку по Парижу я точно ещё долго буду вспоминать. Хочу, чтобы у нас впереди было ещё очень много таких моментов, чтобы мы вместе путешествовали, смеялись, проходили через всё и просто были счастливы друг с другом.</p>
+
+        <p>Я хочу построить с тобой наше будущее, создать семью и однажды вспоминать, как всё начиналось. Я надеюсь, что у нас впереди ещё целая жизнь вместе.</p>
+
+        <p>С днём рождения, моя любимая. Я тебя очень сильно люблю и хочу, чтобы ты всегда была рядом со мной. ❤️</p>
+
+        <p class="sign">Твой Миша</p>
+    </div>
+
+    <button id="closeLetter">Закрыть письмо</button>
+</div>
+
+<!-- просмотр фото -->
+<div id="viewer">
+    <span id="close">×</span>
+    <img id="viewer-img" alt="">
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(255,92,154,.35), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(255,0,120,.25), transparent 40%),
+        linear-gradient(135deg, #100713, #291225);
+    background-attachment: fixed;
+}
+
+
+/* ==========================
+   Загрузка
+========================== */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #100713;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    animation: hideLoader 2s forwards;
+    animation-delay: 1.5s;
+}
+
+#loader h1 {
+    font-size: 80px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes hideLoader {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+main {
+    max-width: 850px;
+    margin: auto;
+    padding: 20px;
+}
+
+
+/* ==========================
+   Главный экран
+========================== */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 55px;
+    background: linear-gradient(90deg, white, #ff79ae);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+button {
+    padding: 15px 35px;
+    margin: 10px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.25);
+    color: white;
+    background: rgba(255,92,154,.25);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+    font-size: 17px;
+    transition: background .3s, box-shadow .3s, transform .2s;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 35px rgba(255,92,154,.5);
+}
+
+
+/* ==========================
+   Стекло
+========================== */
+
+.glass {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    backdrop-filter: blur(25px);
+    border-radius: 30px;
+    padding: 30px;
+    margin: 35px 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+
+
+/* ==========================
+   Таймер
+========================== */
+
+.time {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.time div {
+    width: 90px;
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(255,92,154,.25);
+    text-align: center;
+}
+
+.time span {
+    display: block;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+/* ==========================
+   Достижения
+========================== */
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-radius: 25px;
+    margin-top: 15px;
+    transition: .4s;
+}
+
+.achievement:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(255,92,154,.3);
+}
+
+.achievement span {
+    font-size: 45px;
+}
+
+.achievement h3 {
+    margin: 0 0 5px;
+}
+
+.achievement p {
+    margin: 0;
+    opacity: .7;
+}
+
+.locked {
+    opacity: .45;
+    filter: grayscale(1);
+}
+
+
+/* ==========================
+   Квест
+========================== */
+
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(0);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+    z-index: 150;
+}
+
+#overlay.active {
+    opacity: 1;
+    visibility: visible;
+    backdrop-filter: blur(12px);
+}
+
+#game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(.8);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    border-radius: 30px;
+    background: rgba(20,10,25,.9);
+    border: 1px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(30px);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+}
+
+#game.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%,-50%) scale(1);
+}
+
+#progress {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 20px;
+    background: rgba(255,92,154,.25);
+    border: 1px solid rgba(255,255,255,.2);
+    font-size: 13px;
+}
+
+.question {
+    display: none;
+    animation: showQuestion .5s;
+}
+
+.question.active {
+    display: block;
+}
+
+@keyframes showQuestion {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answers button {
+    width: 90%;
+}
+
+.correct {
+    background: rgba(0,255,120,.35) !important;
+}
+
+.wrong {
+    animation: shake .3s;
+    background: rgba(255,0,0,.25) !important;
+    transform: none !important;
+}
+
+@keyframes shake {
+    25% {
+        transform: translateX(-10px) !important;
+    }
+    75% {
+        transform: translateX(10px) !important;
+    }
+}
+
+
+/* ==========================
+   Сердечки игры
+========================== */
+
+#heartArea {
+    height: 250px;
+    position: relative;
+}
+
+.gameHeart {
+    position: absolute;
+    font-size: 35px;
+    cursor: pointer;
+    animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+    50% {
+        transform: scale(1.3);
+    }
+}
+
+
+/* ==========================
+   Дата
+========================== */
+
+#dateInput {
+    width: 90%;
+    padding: 15px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.08);
+    color: white;
+    font-size: 18px;
+    outline: none;
+    text-align: center;
+    backdrop-filter: blur(20px);
+}
+
+#dateInput::placeholder {
+    color: rgba(255,255,255,.5);
+}
+
+
+/* ==========================
+   Письмо
+========================== */
+
+#letter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(.7);
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 35px;
+    border-radius: 30px;
+    background: rgba(20,10,25,.92);
+    border: 1px solid rgba(255,255,255,.2);
+    backdrop-filter: blur(30px);
+    z-index: 250;
+    opacity: 0;
+    visibility: hidden;
+    transition: .6s;
+    text-align: center;
+}
+
+#letter.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%,-50%) scale(1);
+}
+
+.letter-text {
+    text-align: left;
+    line-height: 1.6;
+}
+
+.letter-text .sign {
+    text-align: right;
+    font-style: italic;
+    opacity: .85;
+}
+
+.envelope {
+    font-size: 80px;
+    text-align: center;
+    animation: envelopeOpen 1s;
+}
+
+@keyframes envelopeOpen {
+    0% {
+        transform: rotateX(90deg) scale(.5);
+    }
+    100% {
+        transform: rotateX(0) scale(1);
+    }
+}
+
+
+/* ==========================
+   Фото
+========================== */
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+}
+
+.photo {
+    width: 160px;
+    margin: -10px;
+    background: white;
+    color: #333;
+    padding: 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.photo:nth-child(odd) {
+    transform: rotate(-5deg);
+}
+
+.photo:nth-child(even) {
+    transform: rotate(5deg);
+}
+
+.photo:hover {
+    transform: scale(1.1) rotate(0);
+    z-index: 5;
+}
+
+.photo img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+/* просмотр */
+
+#viewer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(0,0,0,.85);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+    z-index: 300;
+}
+
+#viewer.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#viewer img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 25px;
+    transform: scale(.7) rotate(-8deg);
+    transition: .5s;
+}
+
+#viewer.active img {
+    transform: scale(1) rotate(0);
+}
+
+#close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+
+/* ==========================
+   Падающие сердечки
+========================== */
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    color: #ff7bab;
+    opacity: .35;
+    pointer-events: none;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(255,92,154,.8);
+    animation: floatHeart linear forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: .8s;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: none;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .photo {
+        width: 145px;
+    }
+
+    #letter {
+        padding: 25px;
+    }
+}
